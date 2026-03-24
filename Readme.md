@@ -7,7 +7,7 @@
 
 ## 📖 Sobre o Projeto
 
-O **EcoPay** é um projeto educacional "EM DESENVOLVIMENTO" com o objetivo de simular uma **plataforma de processamento de pagamentos**, inspirada na arquitetura utilizada por empresas fintech e plataformas financeiras modernas.
+O **EcoPay** é um projeto educacional com o objetivo de simular uma **plataforma de processamento de pagamentos**, inspirada na arquitetura utilizada por empresas fintech e plataformas financeiras modernas.
 
 Este projeto foi criado com foco em:
 
