@@ -59,6 +59,196 @@ Ou seja, **a IA é uma ferramenta de apoio ao pensamento crítico**, e não um s
 
 # 🏗️ Arquitetura do Projeto
 
-O EcoPay segue uma **arquitetura em camadas**, amplamente utilizada em sistemas corporativos.
+O EcoPay segue uma **arquitetura em camadas**, amplamente utilizada em sistemas corporativos, garantindo:
 
-**Observação:** O Readme será atualizado conforme cada camada desenvolvida.
+* Separação de responsabilidades
+* Facilidade de manutenção
+* Escalabilidade
+* Código mais organizado e testável
+
+## 📂 Estrutura de Pastas
+
+```bash
+src/main/java/com/ecopay/ecopay
+│
+├── config
+│   └── SecurityConfig.java
+│
+├── controller
+│   └── PagamentoController.java
+│
+├── dto
+│   ├── PagamentoRequestDTO.java
+│   └── PagamentoResponseDTO.java
+│
+├── entity
+│   └── Pagamento.java
+│
+├── enums
+│   ├── MetodoPagamento.java
+│   └── StatusPagamento.java
+│
+├── exception
+│   └── GlobalExceptionHandler.java
+│
+├── repository
+│   └── PagamentoRepository.java
+│
+├── service
+│   └── PagamentoService.java
+│
+└── EcopayApplication.java
+```
+
+## 📌 Descrição das Camadas
+
+### 🔹 Controller
+
+#### Responsável por expor os endpoints da API REST.
+
+#### Recebe requisições HTTP
+
+* Valida dados de entrada
+* Chama a camada de service
+* Retorna respostas para o cliente
+
+### 🔹 Service
+
+#### Camada onde fica a lógica de negócio da aplicação.
+
+* Processamento de pagamentos
+* Definição de regras de negócio
+* Controle de status
+* Comunicação com o repository
+
+### 🔹 Repository
+
+#### Responsável pelo acesso ao banco de dados.
+
+* Utiliza Spring Data JPA
+* Executa operações CRUD
+* Abstrai o acesso à persistência
+
+### 🔹 Entity
+
+#### Representa as tabelas do banco de dados.
+
+* Mapeamento com JPA (@Entity)
+* Define os campos persistidos
+
+### 🔹 DTO (Data Transfer Object)
+
+#### Utilizado para transferência de dados entre camadas.
+
+* Evita expor diretamente a entidade
+* Controla entrada e saída de dados
+
+### 🔹 Enums
+
+#### Define valores fixos do sistema.
+
+* Tipos de pagamento
+* Status do pagamento
+
+### 🔹 Exception
+
+#### Camada responsável pelo tratamento global de erros.
+
+* Padroniza respostas de erro
+* Evita stacktrace exposto ao cliente
+
+### 🔹 Config
+
+#### Configurações da aplicação.
+
+* Segurança (Spring Security)
+* Filtros e autenticação
+
+### ⚙️ Fluxo de Funcionamento da Aplicação
+
+#### 🔄 1. Requisição do Cliente
+
+##### O cliente envia uma requisição HTTP para criar um pagamento:
+
+```http request
+POST /pagamentos
+```
+* Com um JSON:
+
+```json
+{
+  "valor": 150.00,
+  "metodo": "PIX"
+}
+```
+
+#### 🔄 2. Controller Recebe a Requisição
+
+##### O PagamentoController:
+
+* Recebe os dados via DTO (PagamentoRequestDTO)
+* Valida a entrada
+* Encaminha para o service
+
+### 🔄 3. Service Processa a Regra de Negócio
+
+##### O PagamentoService:
+
+* Cria a entidade Pagamento
+* Define status inicial (ex: PENDENTE)
+* Aplica regras de negócio:
+* Tipo de pagamento
+* Simulação de processamento
+* Atualiza status (ex: APROVADO ou RECUSADO)
+
+### 🔄 4. Persistência no Banco
+
+##### O PagamentoRepository:
+
+* Salva os dados no banco (H2 ou outro)
+* Retorna a entidade persistida
+
+### 🔄 5. Conversão para DTO de Resposta
+
+##### O Service:
+
+* Converte a entidade Pagamento em PagamentoResponseDTO
+* Remove dados desnecessários
+* Prepara resposta segura
+
+### 🔄 6. Retorno ao Cliente
+
+##### O Controller retorna:
+
+````json
+{
+  "id": 1,
+  "valor": 150.00,
+  "metodo": "PIX",
+  "status": "APROVADO"
+}
+````
+
+### 🔄 7. Tratamento de Erros
+
+##### Caso ocorra algum problema:
+
+* O GlobalExceptionHandler intercepta
+* Retorna uma resposta padronizada:
+
+```json
+{
+"erro": "Pagamento não encontrado",
+"status": 404
+}
+```
+
+## 📌 Observação
+
+Este projeto foi desenvolvido com finalidade **didática**, visando o aprimoramento de **boas práticas de desenvolvimento de software**, incluindo organização em camadas, padrões de arquitetura e uso de tecnologias modernas do ecossistema Java.
+
+---
+
+## 👩‍💻 Desenvolvido By
+
+**Brunna Dornelles** ✨
