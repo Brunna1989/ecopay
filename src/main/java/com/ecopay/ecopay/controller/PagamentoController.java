@@ -29,4 +29,12 @@ public class PagamentoController {
     public PagamentoResponseDTO buscarPagamento(@PathVariable Long id){
         return pagamentoService.buscarPagamento(id);
     }
+
+    @PatchMapping("/{id}/status")
+    public PagamentoResponseDTO atualizarStatus(
+            @PathVariable Long id,
+            @RequestParam String status){
+
+        return pagamentoService.atualizarStatus(id, status);
+    }
 }

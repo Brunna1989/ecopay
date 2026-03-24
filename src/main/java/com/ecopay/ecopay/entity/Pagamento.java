@@ -1,5 +1,7 @@
 package com.ecopay.ecopay.entity;
 
+import com.ecopay.ecopay.enums.MetodoPagamento;
+import com.ecopay.ecopay.enums.StatusPagamento;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,14 +20,20 @@ public class Pagamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    Long id;
+    private Long id;
 
     private BigDecimal valor;
+
     private String moeda;
+
     private String pagadorId;
-    private String metodoPagamento;
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    private MetodoPagamento metodoPagamento;
+
+    @Enumerated(EnumType.STRING)
+    private StatusPagamento status;
+
     private LocalDateTime dataCriacao;
 
 

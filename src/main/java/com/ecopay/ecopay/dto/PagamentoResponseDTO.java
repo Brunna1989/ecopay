@@ -1,5 +1,7 @@
 package com.ecopay.ecopay.dto;
 
+import com.ecopay.ecopay.enums.MetodoPagamento;
+import com.ecopay.ecopay.enums.StatusPagamento;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -16,7 +18,7 @@ public class PagamentoResponseDTO {
     private BigDecimal valor;
     private String moeda;
     private String pagadorId;
-    private String metodoPagamento;
-    private String status;
+    private MetodoPagamento metodoPagamento;
+    private StatusPagamento status;
     private LocalDateTime dataCriacao;
 }
